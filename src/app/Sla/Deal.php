@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Sla;
 
-use Nette\Utils\DateTimeImmutable;
+use DateTimeImmutable;
 
 final readonly class Deal
 {

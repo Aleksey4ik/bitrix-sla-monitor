@@ -1,10 +1,11 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Sla;
 
-use Nette\Utils\DateTimeImmutable;
+use DateTimeImmutable;
 
-readonly class StageTimeoutRule
+final readonly class StageTimeoutRule
 {
     public function __construct(
         private string $stageId,
@@ -17,10 +18,10 @@ readonly class StageTimeoutRule
             return false;
         }
 
-        if ($deal->stageEnteredAt->getTimestamp() + $this->limitMinutes * 60 < time()) {
-            return false;
+        if ($now->getTimestamp() - $deal->stageEnteredAt->getTimestamp() > $this->limitMinutes * 60) {
+            return true;
         }
 
-        return true;
+        return false;
     }
 }
