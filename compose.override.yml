@@ -1,0 +1,12 @@
+services:
+  app:
+    volumes:
+      - ./src:/var/www/html
+      - vendor:/var/www/html/vendor
+
+  nginx:
+    volumes:
+      - ./src:/var/www/html
+
+volumes:
+  vendor:
