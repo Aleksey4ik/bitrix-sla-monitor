@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Tests\Unit;
@@ -17,7 +18,7 @@ class StageTimeoutRuleTest extends TestCase
         $this->dateTime = new DateTimeImmutable('2026-10-23 12:00:00');
     }
 
-    public function testExpiredTimeoutRule(): void
+    public function test_expired_timeout_rule(): void
     {
         $rule = new StageTimeoutRule('NEW', 60);
         $deal = new Deal(1, 'NEW', $this->dateTime->modify('-120 minutes'));
@@ -25,7 +26,7 @@ class StageTimeoutRuleTest extends TestCase
         $this->assertTrue($rule->isViolated($deal, $this->dateTime));
     }
 
-    public function testNotExpiredTimeoutRule(): void
+    public function test_not_expired_timeout_rule(): void
     {
         $rule = new StageTimeoutRule('NEW', 60);
         $deal = new Deal(1, 'NEW', $this->dateTime->modify('-30 minutes'));
@@ -33,7 +34,7 @@ class StageTimeoutRuleTest extends TestCase
         $this->assertFalse($rule->isViolated($deal, $this->dateTime));
     }
 
-    public function testStageNotMatchRule(): void
+    public function test_stage_not_match_rule(): void
     {
         $rule = new StageTimeoutRule('NEW', 60);
         $deal = new Deal(1, 'OLD', $this->dateTime->modify('-30 minutes'));
@@ -41,7 +42,7 @@ class StageTimeoutRuleTest extends TestCase
         $this->assertFalse($rule->isViolated($deal, $this->dateTime));
     }
 
-    public function testStageMatchRule(): void
+    public function test_stage_match_rule(): void
     {
         $rule = new StageTimeoutRule('NEW', 60);
         $deal = new Deal(1, 'NEW', $this->dateTime->modify('-60 minutes'));
