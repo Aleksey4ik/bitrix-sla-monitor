@@ -25,6 +25,23 @@ docker compose exec app php artisan migrate
 
 Приложение откроется на http://localhost:8080.
 
+## Проверки качества
+
+Все команды выполняются из корня репозитория, внутри контейнера.
+
+```bash
+# тесты
+docker compose exec app php artisan test
+
+# статический анализ (PHPStan + Larastan)
+docker compose exec app ./vendor/bin/phpstan analyse
+
+# проверка стиля кода (Pint); без --test исправляет файлы
+docker compose exec app ./vendor/bin/pint --test
+```
+
+Те же три проверки запускаются автоматически в GitHub Actions на каждый pull request.
+
 ## Структура
 
 - `src/` — приложение Laravel
